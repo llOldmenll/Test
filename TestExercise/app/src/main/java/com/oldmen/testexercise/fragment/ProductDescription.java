@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oldmen.testexercise.adapter.ProductDescriptionAdapter;
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.container.Review;
+import com.oldmen.testexercise.activity.MainActivity;
+import com.oldmen.testexercise.container.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +35,7 @@ public class ProductDescription extends Fragment {
     private FloatingActionButton fab;
     private ArrayList<Review> productReviews = new ArrayList<>();
     private Product product;
-    static final String PRODUCT_DESCR_FRAGMENT_TAG = "productDescription";
+    public static final String PRODUCT_DESCR_FRAGMENT_TAG = "productDescription";
     private OnFabListener listener;
 
     public ProductDescription() {

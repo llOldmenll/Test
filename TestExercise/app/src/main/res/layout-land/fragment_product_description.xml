@@ -4,7 +4,7 @@
     android:id="@+id/coord_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.oldmen.testexercise.ProductDescription">
+    tools:context="com.oldmen.testexercise.fragment.ProductDescription">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

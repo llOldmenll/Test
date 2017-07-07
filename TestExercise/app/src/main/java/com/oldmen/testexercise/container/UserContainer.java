@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.container;
 
 public class UserContainer {
 

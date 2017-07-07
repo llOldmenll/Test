@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.activity.MainActivity;
 
 public class ReviewDialogFragment extends DialogFragment {
 

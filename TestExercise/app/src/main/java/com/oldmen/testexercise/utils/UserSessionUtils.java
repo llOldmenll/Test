@@ -1,8 +1,10 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.utils;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.oldmen.testexercise.container.UserContainer;
 
 public class UserSessionUtils {
 

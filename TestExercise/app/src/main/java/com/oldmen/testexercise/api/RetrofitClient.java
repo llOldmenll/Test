@@ -1,7 +1,10 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.api;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.oldmen.testexercise.container.UserContainer;
+import com.oldmen.testexercise.utils.UserSessionUtils;
 
 import java.io.IOException;
 

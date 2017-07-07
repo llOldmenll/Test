@@ -1,7 +1,7 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.container;
 
 
-class PostRetrofitReview {
+public class PostRetrofitReview {
 
 
     /**

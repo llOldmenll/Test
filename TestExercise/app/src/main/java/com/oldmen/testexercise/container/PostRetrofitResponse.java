@@ -1,8 +1,8 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.container;
 
 
 
-class PostRetrofitResponse {
+public class PostRetrofitResponse {
 
     /**
      * success : true

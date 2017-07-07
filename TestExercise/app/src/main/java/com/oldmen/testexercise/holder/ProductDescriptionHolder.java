@@ -1,9 +1,12 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.container.Review;
 
 
 public class ProductDescriptionHolder extends RecyclerView.ViewHolder {

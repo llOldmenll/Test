@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.container;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

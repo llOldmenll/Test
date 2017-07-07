@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -18,21 +18,37 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.oldmen.testexercise.utils.InternetConnection;
+import com.oldmen.testexercise.callback.OnCardClickListener;
+import com.oldmen.testexercise.container.PostRetrofitReview;
+import com.oldmen.testexercise.container.PostRetrofitReviewResponse;
+import com.oldmen.testexercise.fragment.ProductDescription;
+import com.oldmen.testexercise.fragment.ProductList;
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.container.Review;
+import com.oldmen.testexercise.fragment.ReviewDialogFragment;
+import com.oldmen.testexercise.container.ReviewsRating;
+import com.oldmen.testexercise.container.UserContainer;
+import com.oldmen.testexercise.utils.UserSessionUtils;
+import com.oldmen.testexercise.api.ApiService;
+import com.oldmen.testexercise.api.RetrofitClient;
+import com.oldmen.testexercise.container.Product;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.oldmen.testexercise.ProductDescription.PRODUCT_DESCR_FRAGMENT_TAG;
+import static com.oldmen.testexercise.fragment.ProductDescription.PRODUCT_DESCR_FRAGMENT_TAG;
 
 
 public class MainActivity extends AppCompatActivity implements OnCardClickListener, ReviewDialogFragment.onDialogListener, ProductDescription.OnFabListener {
 
-    final static String PRODUCT_LIST_KEY = "Product List Array";
-    final static String PRODUCT_SAMPLE_KEY = "Product sample";
-    final static String PRODUCT_REVIEWS_KEY = "Product Description";
-    final static String PRODUCT_ID_KEY = "Product id";
+    public final static String PRODUCT_LIST_KEY = "Product List Array";
+    public final static String PRODUCT_SAMPLE_KEY = "Product sample";
+    public final static String PRODUCT_REVIEWS_KEY = "Product Description";
+    public final static String PRODUCT_ID_KEY = "Product id";
 
     private TextView helloText;
     private Button navigBtnSignIn;
@@ -78,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements OnCardClickListen
                 break;
             case R.id.item_registration:
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
-                MainActivity.this.finish();
                 startActivity(intent);
         }
         return true;

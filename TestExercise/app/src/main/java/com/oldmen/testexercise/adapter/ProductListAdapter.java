@@ -1,10 +1,15 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.oldmen.testexercise.holder.ProductListHolder;
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.callback.OnCardClickListener;
+import com.oldmen.testexercise.container.Product;
 
 import java.util.ArrayList;
 

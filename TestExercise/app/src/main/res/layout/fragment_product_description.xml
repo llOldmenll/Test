@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.oldmen.testexercise.ProductDescription">
+    tools:context="com.oldmen.testexercise.fragment.ProductDescription">
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            app:layout_behavior="com.oldmen.testexercise.ScrollAwareFABBehavior"
+            app:layout_behavior="com.oldmen.testexercise.utils.ScrollAwareFABBehavior"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

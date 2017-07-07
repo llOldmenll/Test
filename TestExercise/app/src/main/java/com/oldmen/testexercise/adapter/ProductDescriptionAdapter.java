@@ -1,9 +1,13 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.oldmen.testexercise.holder.ProductDescriptionHolder;
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.container.Review;
 
 import java.util.ArrayList;
 

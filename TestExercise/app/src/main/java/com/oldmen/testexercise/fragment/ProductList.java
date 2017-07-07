@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oldmen.testexercise.adapter.ProductListAdapter;
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.activity.MainActivity;
+import com.oldmen.testexercise.callback.OnCardClickListener;
+import com.oldmen.testexercise.container.Product;
+
 import java.util.ArrayList;
 
 public class ProductList extends Fragment {
@@ -17,7 +23,7 @@ public class ProductList extends Fragment {
     private ArrayList<Product> productArrayList = new ArrayList<>();
     private RecyclerView recyclerProductList;
     OnCardClickListener listener;
-    static final String PRODUCT_LIST_FRAGMENT_TAG = "productList";
+    public static final String PRODUCT_LIST_FRAGMENT_TAG = "productList";
 
 
     public ProductList() {

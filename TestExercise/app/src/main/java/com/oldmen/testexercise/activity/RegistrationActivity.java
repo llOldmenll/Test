@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,30 +16,39 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.utils.UserSessionUtils;
+import com.oldmen.testexercise.api.ApiService;
+import com.oldmen.testexercise.api.RetrofitClient;
+import com.oldmen.testexercise.container.PostRetrofitBody;
+import com.oldmen.testexercise.container.PostRetrofitResponse;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private EditText login;
     private EditText password;
-    private TextView createNewAccount;
+    private EditText confirmPassword;
+    private TextView startSignIn;
     private TextView skip;
-    private Button btnSignIn;
+    private Button btnRegistrateUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registration);
 
-        login = (EditText) findViewById(R.id.input_login);
-        password = (EditText) findViewById(R.id.input_password);
-        createNewAccount = (TextView) findViewById(R.id.start_registration);
-        skip = (TextView) findViewById(R.id.btn_skip);
-        btnSignIn = (Button) findViewById(R.id.btn_sign_in);
+        login = (EditText) findViewById(R.id.registr_login);
+        password = (EditText) findViewById(R.id.registr_password);
+        confirmPassword = (EditText) findViewById(R.id.registr_confirm_password);
+        startSignIn = (TextView) findViewById(R.id.registr_start_login);
+        skip = (TextView) findViewById(R.id.registr_btn_skip);
+        btnRegistrateUser = (Button) findViewById(R.id.registr_btn_registration);
 
         login.addTextChangedListener(new TextWatcher() {
             @Override
@@ -87,62 +96,71 @@ public class LoginActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserSessionUtils.saveSkipRegistrationMode(LoginActivity.this, UserSessionUtils.YES_KEY);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.finish();
+                UserSessionUtils.saveSkipRegistrationMode(RegistrationActivity.this, UserSessionUtils.YES_KEY);
+                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                RegistrationActivity.this.finish();
                 startActivity(intent);
-            }
-        });
+            }});
 
-        createNewAccount.setOnClickListener(new View.OnClickListener() {
+        startSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                LoginActivity.this.finish();
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                RegistrationActivity.this.finish();
                 startActivity(intent);
             }
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+        btnRegistrateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String userLogin = login.getText().toString();
                 String userPassword = password.getText().toString();
+                String userConfirmPassword = confirmPassword.getText().toString();
 
-                if (isLoginInfoValid(userLogin, userPassword)) {
+                if(isRegInfoValid(userLogin, userPassword, userConfirmPassword)){
 
                     PostRetrofitBody body = new PostRetrofitBody();
                     body.setUsername(userLogin);
                     body.setPassword(userPassword);
-                    signInUser(body);
+                    registrationUser(body);
 
                 } else
-                    Toast.makeText(LoginActivity.this, "Incorrect login data!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    Toast.makeText(RegistrationActivity.this, "Incorrect registration data!", Toast.LENGTH_SHORT).show();
 
+            }});
     }
 
-    private boolean isLoginInfoValid(String userLogin, String userPassword) {
+    private boolean isRegInfoValid(String userLogin, String userPassword, String userConfirmPassword) {
 
         login.setError(null);
         password.setError(null);
+        confirmPassword.setError(null);
 
         userLogin = userLogin.trim();
         userPassword = userPassword.trim();
+        userConfirmPassword = userConfirmPassword.trim();
 
-        if (isLoginValid(userLogin) && isPasswordValid(userPassword)) {
+        if (isLoginValid(userLogin) && isPasswordValid(userPassword) && isConfirmPasswordValid(userPassword, userConfirmPassword)) {
             return true;
         } else {
 
-            if (!isLoginValid(userLogin)) {
+            if (!isLoginValid(userLogin)){
                 login.setError("too short!");
             }
-            if (!isPasswordValid(userPassword)) {
+            if (!isPasswordValid(userPassword)){
                 password.setError("too short!");
                 password.setText(null);
+                confirmPassword.setText(null);
             }
+            if (!isConfirmPasswordValid(userPassword, userConfirmPassword)){
+                confirmPassword.setError("incorrect confirm");
+                confirmPassword.setText(null);
+                password.setText(null);
+            }
+
             return false;
         }
     }
@@ -155,63 +173,45 @@ public class LoginActivity extends AppCompatActivity {
         return (password != null && password.length() > 3);
     }
 
-    private void signInUser(final PostRetrofitBody body) {
+    private boolean isConfirmPasswordValid(String password, String confirmPassword){
+        return confirmPassword.equals(password);
+    }
+
+    private void registrationUser(PostRetrofitBody body){
 
         ApiService api = RetrofitClient.getApiService(this);
-        Call<PostRetrofitResponse> signInCall = api.postUserLogin(body);
-        signInCall.enqueue(new Callback<PostRetrofitResponse>() {
+        Call<PostRetrofitResponse> registrCall = api.postUserRegistration(body);
+        registrCall.enqueue(new Callback<PostRetrofitResponse>() {
 
             @Override
             public void onResponse(@NonNull Call<PostRetrofitResponse> call, @NonNull Response<PostRetrofitResponse> response) {
 
                 PostRetrofitResponse retrofitResponse = response.body();
 
-                if (retrofitResponse != null && retrofitResponse.getToken() != null && !retrofitResponse.getToken().equals("")) {
+                if (retrofitResponse != null) {
+                    boolean isRegistrated = retrofitResponse.isSuccess();
 
-                    boolean isSignInSuccessed = retrofitResponse.isSuccess();
+                    Log.i("info", String.valueOf(isRegistrated));
 
-                    Log.i("info", String.valueOf(isSignInSuccessed));
-                    Log.i("info", retrofitResponse.getToken());
-
-                    if (isSignInSuccessed) {
-                        UserContainer user = new UserContainer();
-                        user.setUserSkipRegistrMode(UserSessionUtils.YES_KEY);
-                        user.setUserLogin(body.getUsername());
-                        user.setUserToken(retrofitResponse.getToken());
-
-                        UserSessionUtils.saveSession(LoginActivity.this, user);
+                    if(isRegistrated){
 
                         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                RegistrationActivity.this.finish();
                                 startActivity(intent);
-                                LoginActivity.this.finish();
-                            }
-                        };
-                        createAlertDialog(getString(R.string.sign_in_successful), listener);
+                            }};
+                        createAlertDialog(getString(R.string.registration_successful), listener);
 
-                    } else {
+                    }else{
                         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                            }
-                        };
-                        createAlertDialog(getString(R.string.sign_in_failed), listener);
-                        login.setText(null);
-                        password.setText(null);
+                            }};
+                        createAlertDialog(getString(R.string.registration_failed), listener);
                     }
-                } else {
-                    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    };
-                    createAlertDialog(getString(R.string.sign_in_failed), listener);
-                    login.setText(null);
-                    password.setText(null);
                 }
             }
 
@@ -221,11 +221,10 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
-    private void createAlertDialog(String message, DialogInterface.OnClickListener listener) {
-        AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+    private void createAlertDialog(String message, DialogInterface.OnClickListener listener){
+        AlertDialog alertDialog = new AlertDialog.Builder(RegistrationActivity.this).create();
         alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", listener);
         alertDialog.show();

@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.callback;
 
 
 public interface OnCardClickListener {

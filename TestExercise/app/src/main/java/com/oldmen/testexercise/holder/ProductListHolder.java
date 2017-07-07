@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.holder;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.oldmen.testexercise.R;
+import com.oldmen.testexercise.container.Product;
 import com.squareup.picasso.Picasso;
 
 
@@ -17,7 +19,7 @@ public class ProductListHolder extends RecyclerView.ViewHolder {
     private TextView productTitle;
     private RatingBar ratingBar;
     private ImageView previewImage;
-    CardView cardView;
+    public CardView cardView;
 
 
     public ProductListHolder(View itemView) {
@@ -29,7 +31,7 @@ public class ProductListHolder extends RecyclerView.ViewHolder {
         cardView = (CardView) itemView.findViewById(R.id.product_list_card);
     }
 
-    void bindProduct(final Product product, final Context context) {
+    public void bindProduct(final Product product, final Context context) {
 
         productTitle.setText(product.getTitle());
         ratingBar.setRating((float) product.getRating());

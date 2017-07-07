@@ -1,5 +1,13 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.api;
 
+
+import com.oldmen.testexercise.container.PostRetrofitBody;
+import com.oldmen.testexercise.container.PostRetrofitResponse;
+import com.oldmen.testexercise.container.PostRetrofitReview;
+import com.oldmen.testexercise.container.PostRetrofitReviewResponse;
+import com.oldmen.testexercise.container.Review;
+import com.oldmen.testexercise.container.ReviewsRating;
+import com.oldmen.testexercise.container.Product;
 
 import java.util.ArrayList;
 

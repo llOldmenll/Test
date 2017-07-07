@@ -1,4 +1,4 @@
-package com.oldmen.testexercise;
+package com.oldmen.testexercise.utils;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
